@@ -1,7 +1,7 @@
 # SpaceRenter (KongKong)
 ### cs184 - final project
 ### Group Members:
-### Xiao Sun, Zizhuo Lin, Zeyu Zhu, James Wang
+Xiao Sun, Zizhuo Lin, Zeyu Zhu, James Wang
 
 ### Product idea
 * An android app that allow its user to share unused space with others. 
