@@ -64,14 +64,14 @@
             app:layout_constraintVertical_bias="0.513"
             tools:layout_editor_absoluteX="84dp" />
 
-        <Button
+        <ImageView
             android:id="@+id/buttonSignin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
             android:layout_below="@+id/editTextPassword"
             android:layout_centerHorizontal="true"
-            android:text="Login"
-            android:onClick="signIn"/>
+            android:onClick="signIn"
+            app:srcCompat="@drawable/ic_login_orange_button_by_vexels" />
 
         <TextView
             android:id="@+id/textViewSignUp"
