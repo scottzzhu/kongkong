@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,14 +26,17 @@ public class RegisterActivity extends Activity {
     private FirebaseAuth mAuth;
     private EditText password;
     private EditText email;
+    private Button button;
+    private String myEmail;
     public static Toast myToast;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -42,6 +46,24 @@ public class RegisterActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
+        button = (Button) findViewById(R.id.registerButton);
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    // NOTE: this Activity should get onpen only when the user is not signed in, otherwise
+                    // the user will receive another verification email.
+                    sendVerification();
+                } else {
+                    // User is signed out
+
+                }
+                // ...
+            }
+        };
 
 
     }
@@ -49,7 +71,7 @@ public class RegisterActivity extends Activity {
 
     public void createAccount(View view) {
 
-        final String myEmail = email.getText().toString();
+        myEmail = email.getText().toString();
         final String myPass = password.getText().toString();
 
 
@@ -69,38 +91,20 @@ public class RegisterActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }*/
         else {
-
+            button.setEnabled(false);
             mAuth.createUserWithEmailAndPassword(myEmail, myPass)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
                                 //Toast.makeText(RegisterActivity.this, "Success",Toast.LENGTH_SHORT).show();
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "createUserWithEmail:success");
                                 //FirebaseUser user = mAuth.getCurrentUser();
                                 //updateUI(user);
-                                FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-                                    @Override
-                                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                                        if (user != null) {
-                                            // User is signed in
-                                            // NOTE: this Activity should get onpen only when the user is not signed in, otherwise
-                                            // the user will receive another verification email.
-                                            sendVerification();
-                                        } else {
-                                            // User is signed out
-
-                                        }
-                                        // ...
-                                    }
-                                };
                                 mAuth.addAuthStateListener(mAuthListener);
-
-
                             } else {
+                                button.setEnabled(true);
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(RegisterActivity.this, "Failed to create user:" + task.getException().getMessage(),
@@ -129,9 +133,12 @@ public class RegisterActivity extends Activity {
                             Toast.makeText(RegisterActivity.this,
                                     "Verification email sent to " + user.getEmail(),
                                     myToast.LENGTH_SHORT).show();
+                            System.out.println(user.getEmail());
                             Intent myIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(myIntent);
                             finish();
+                            //prevent the onAuthState in registerActivity will go over again and send another email
+                            mAuth.removeAuthStateListener(mAuthListener);
                         } else {
                             Log.e(TAG, "sendEmailVerification", task.getException());
                             Toast.makeText(RegisterActivity.this,

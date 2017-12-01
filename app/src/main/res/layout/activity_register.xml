@@ -17,9 +17,12 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imageView3"
+            android:layout_marginTop="44dp"
             android:text="Welcome to Kong"
             android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +32,9 @@
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="29dp"
             android:ems="10"
             android:hint="email address ..."
             android:inputType="textEmailAddress"
@@ -51,18 +54,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="85dp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="please use email address to sign up"
-            app:layout_constraintBottom_toTopOf="@+id/email"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.513"
-            tools:layout_editor_absoluteX="84dp" />
-
         <Button
             android:id="@+id/registerButton"
             android:layout_width="wrap_content"
@@ -78,8 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/registerButton"
             android:layout_centerHorizontal="true"
-            android:text=" Login Here"
-            android:onClick="changeAct"/>
+            android:layout_marginTop="12dp"
+            android:onClick="changeAct"
+            android:text=" Login Here" />
 
         <TextView
             android:id="@+id/forgetTV2"
@@ -99,6 +91,15 @@
             android:layout_alignParentEnd="true"
             android:text="Just Look Around"
             android:onClick="anonymousLogin"/>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="68dp"
+            android:src="@drawable/splash" />
 
     </RelativeLayout>
 
