@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,6 +21,8 @@ class PostActivity extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference rootRef = db.getReference();
     DatabaseReference postRef = rootRef.child("Posts");
+    FirebaseAuth myAuth = FirebaseAuth.getInstance();
+    String email = myAuth.getCurrentUser().getEmail();
 
     EditText Title, Location, Email, Description;
     ImageView button;
@@ -32,7 +35,7 @@ class PostActivity extends AppCompatActivity {
 
         Title = (EditText) findViewById(R.id.titleeditText);
         Location = (EditText) findViewById(R.id.locationeditText3);
-        Email = (EditText) findViewById(R.id.emaileditText4);
+        //Email = (EditText) findViewById(R.id.emaileditText4);
         Description = (EditText) findViewById(R.id.deseditText5);
         button = (ImageView) findViewById(R.id.postbutton);
 
@@ -48,14 +51,14 @@ class PostActivity extends AppCompatActivity {
                 button.startAnimation(myAnim);
                 String t = Title.getText().toString();
                 String l = Location.getText().toString();
-                String e = Email.getText().toString();
+                //String e = Email.getText().toString();
                 String d = Description.getText().toString();
 
 
                 HashMap<String,String> posts_map = new HashMap<>();
                 posts_map.put("Title", t);
                 posts_map.put("Location", l);
-                posts_map.put("Email", e);
+                posts_map.put("Email", email);
                 posts_map.put("Description", d);
 
                 postRef.push().setValue(posts_map);

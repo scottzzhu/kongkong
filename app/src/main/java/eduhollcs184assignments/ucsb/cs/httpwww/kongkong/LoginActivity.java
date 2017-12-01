@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +48,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signIn(View view) {
+
+        ImageView login = (ImageView) findViewById(R.id.buttonSignin);
+        final Animation myAnim = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        login.startAnimation(myAnim);
 
         final String myEmail = email.getText().toString();
         final String myPass = password.getText().toString();
