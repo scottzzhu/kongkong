@@ -13,42 +13,18 @@
         tools:layout_editor_absoluteY="0dp">
 
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
-            android:text="Reset Password"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
         <EditText
             android:id="@+id/editTextEmail2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewLogin2"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="132dp"
             android:ems="10"
             android:hint="email address ..."
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
             tools:layout_editor_absoluteX="85dp" />
-
-        <TextView
-            android:id="@+id/textViewLogin2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="type your email address to receive reset password email"
-            app:layout_constraintBottom_toTopOf="@+id/editTextEmail2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.513"
-            tools:layout_editor_absoluteX="84dp" />
 
         <Button
             android:id="@+id/resetButton"
@@ -58,7 +34,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:onClick="resetPassword"
-            android:text="Reset Password" />
+            android:text="send reset email" />
 
         <TextView
             android:id="@+id/textViewSignin2"
@@ -66,8 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/resetButton"
             android:layout_centerHorizontal="true"
-            android:text=" Sign in Here"
-            android:onClick="changeAct"/>
+            android:layout_marginTop="29dp"
+            android:onClick="changeAct"
+            android:text="BACK" />
 
         <TextView
             android:id="@+id/skipTV3"

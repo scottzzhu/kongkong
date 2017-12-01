@@ -50,7 +50,7 @@ public class SplashScreen extends AppCompatActivity {
                     SplashScreen.this.startActivity(new Intent(SplashScreen.this,RegisterActivity.class));
                     SplashScreen.this.finish();
                 }
-            },2000); // 2000 = 2seconds
+            },3000); // 3000 = 3seconds
 
         }
     }
