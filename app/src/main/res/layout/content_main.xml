@@ -54,6 +54,17 @@
             android:layout_alignEnd="@+id/userIDTV"
             android:layout_marginBottom="16dp"
             android:text="userEmail textView" />
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/button2"
+            android:layout_centerVertical="true"
+            android:onClick="Post"
+            android:text="post" />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
