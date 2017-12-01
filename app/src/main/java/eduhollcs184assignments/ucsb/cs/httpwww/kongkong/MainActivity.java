@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //get navigation bar
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -65,6 +66,12 @@ public class MainActivity extends AppCompatActivity
             userIDTV.setText(userID);
             TextView userEmailTV = (TextView) findViewById(R.id.userEmailTV);
             userEmailTV.setText(userEmail);
+            //navigation bar info
+            View header=navigationView.getHeaderView(0);
+            TextView navUserEmail = (TextView) header.findViewById(R.id.userEmail);
+            navUserEmail.setText(userEmail);
+            TextView navUserID = (TextView) header.findViewById(R.id.userID);
+            navUserID.setText(userID);
         }
         else{
             logInBt.setText("Login");
@@ -138,6 +145,10 @@ public class MainActivity extends AppCompatActivity
 
     public void Post(View view){
         Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(myIntent);
+    }
+    public void gotoProfile(View view){
+        Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(myIntent);
     }
 }
