@@ -8,6 +8,11 @@
     tools:context="eduhollcs184assignments.ucsb.cs.httpwww.kongkong.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -66,5 +71,7 @@
             android:text="post" />
 
     </RelativeLayout>
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
