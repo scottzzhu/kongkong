@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         switch (itemId) {
             case R.id.nav_luggage:
                 category = Category.LUGGAGE;
-                myIntent = new Intent(MainActivity.this, PostActivity.class);
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
                 startActivity(myIntent);
                 break;
             case R.id.nav_parking:
