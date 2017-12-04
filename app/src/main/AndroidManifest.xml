@@ -40,8 +40,13 @@
         </activity>
         <activity android:name=".PostActivity"/>
         <activity android:name=".ResetPassActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:label="Reset Password"/>
+        <activity
+            android:name=".PostViewActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
