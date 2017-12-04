@@ -130,27 +130,32 @@ public class PostActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GALLERY){
-            Uri uri = data.getData();
-            //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
-            button.setImageURI(uri);
+        if(requestCode == GALLERY) {
+            Uri uri;
+            if (data != null) {
+                uri = data.getData();
+                //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
+                button.setImageURI(uri);
 
-            //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
-            StorageReference fileName = mStorage.child("images/"+uri.getLastPathSegment() + ".jpg");
+                //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
+                StorageReference fileName = mStorage.child("images/" + uri.getLastPathSegment() + ".jpg");
 
-            UploadTask up = fileName.putFile(uri);
-            up.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                }
-            });
+                UploadTask up = fileName.putFile(uri);
+                up.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    }
+                });
+            }
+            else
+                return;
         }
 
     }
