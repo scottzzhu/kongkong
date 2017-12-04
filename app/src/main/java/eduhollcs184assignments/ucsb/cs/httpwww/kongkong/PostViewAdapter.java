@@ -21,12 +21,14 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         String location;
         String title;
         String desc;
+        MainActivity.Category category;
 
-        public Post(String email, String location, String title, String desc) {
+        public Post(String email, String location, String title, String desc, MainActivity.Category category) {
             this.email = email;
             this.location = location;
             this.title = title;
             this.desc = desc;
+            this.category = category;
         }
     }
 

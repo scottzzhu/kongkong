@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static eduhollcs184assignments.ucsb.cs.httpwww.kongkong.MainActivity.Category.ALL;
+
 /**
  * Created by scottzhu on 2017/12/3.
  * Activity for all Posts.
@@ -51,9 +53,11 @@ public class PostViewActivity extends AppCompatActivity {
                         new PostViewAdapter.Post(tmp.get("Email"),
                                 tmp.get("Location"),
                                 tmp.get("Title"),
-                                tmp.get("Description"));
+                                tmp.get("Description"),
+                                MainActivity.Category.toCategory(tmp.get("Topic")));
                 Log.d("db","Email: "+tmp.get("Email"));
-                posts.add(newPost);
+                if(newPost.category == MainActivity.category)posts.add(newPost);
+                else if(MainActivity.category == ALL)posts.add(newPost);
                 PostViewAdapter adapter = new PostViewAdapter(posts);
                 rv.setAdapter(adapter);
             }
