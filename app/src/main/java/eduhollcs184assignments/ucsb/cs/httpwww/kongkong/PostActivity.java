@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity {
 
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();

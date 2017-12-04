@@ -23,7 +23,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    enum Category{
+        LEASE, LUGGAGE, PARKING, PETS, RENTAL, OTHER;
+    }
+    public static Category category;
     private FirebaseAuth mAuth;
 
     @Override
@@ -125,26 +128,38 @@ public class MainActivity extends AppCompatActivity
 
         //creating fragment object
         Fragment fragment = null;
-
+        Intent myIntent = null;
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_luggage:
-                fragment = new LuggageFragment();
+                category = Category.LUGGAGE;
+                myIntent = new Intent(MainActivity.this, PostActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_parking:
-                fragment = new ParkingFragment();
+                category = Category.PARKING;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_pets:
-                fragment = new PetsFragment();
+                category = Category.PETS;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_lease:
-                fragment = new LeaseFragment();
+                category = Category.LEASE;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_rental:
-                fragment = new RentalFragment();
+                category = Category.RENTAL;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_other:
-                fragment = new OtherFragment();
+                category = Category.OTHER;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_about:
                 fragment = new AboutFragment();
