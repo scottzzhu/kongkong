@@ -20,8 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewLogin"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
+            android:fontFamily="@font/combo"
             android:hint="email address ..."
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
@@ -35,6 +36,7 @@
             android:layout_below="@+id/editTextEmail"
             android:layout_marginTop="13dp"
             android:ems="10"
+            android:fontFamily="@font/combo"
             android:hint="password ..."
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,11 +49,13 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="190dp"
+            android:fontFamily="@font/combo"
             android:text="please verify your email address before login"
             app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.513"
             tools:layout_editor_absoluteX="84dp" />
+
 
         <ImageView
             android:id="@+id/buttonSignin"
@@ -60,7 +64,7 @@
             android:layout_below="@+id/editTextPassword"
             android:layout_centerHorizontal="true"
             android:onClick="signIn"
-            app:srcCompat="@drawable/ic_login_orange_button_by_vexels" />
+            app:srcCompat="@drawable/login" />
 
         <TextView
             android:id="@+id/textViewSignUp"
@@ -68,8 +72,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonSignin"
             android:layout_centerHorizontal="true"
-            android:text=" Sign up Here"
-            android:onClick="changeAct"/>
+            android:fontFamily="@font/combo"
+            android:onClick="changeAct"
+            android:text=" Sign up Here" />
 
         <TextView
             android:id="@+id/forgetTV"
@@ -78,17 +83,10 @@
             android:layout_below="@+id/textViewSignUp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
-            android:text="Forget password?"
-            android:onClick="reset"/>
+            android:fontFamily="@font/combo"
+            android:onClick="reset"
+            android:text="Forget password?" />
 
-        <TextView
-            android:id="@+id/skipTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:text="Just Look Around"
-            android:onClick="anonymousLogin"/>
 
         <ImageView
             android:id="@+id/imageView4"
@@ -99,6 +97,15 @@
             android:layout_marginTop="53dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/splash3" />
+
+        <ImageView
+            android:id="@+id/skipTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonSignin"
+            android:layout_toEndOf="@+id/buttonSignin"
+            android:onClick="anonymousLogin"
+            app:srcCompat="@drawable/lookaround" />
 
 
     </RelativeLayout>
