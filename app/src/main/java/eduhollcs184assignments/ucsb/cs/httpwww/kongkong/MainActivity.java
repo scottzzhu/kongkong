@@ -177,6 +177,7 @@ public class MainActivity extends AppCompatActivity
         Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
         startActivity(myIntent);
     }
+
     public void gotoProfile(View view){
         Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(myIntent);
