@@ -2,8 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_public"
         android:orderInCategory="100"
+        android:title="public"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_private"
+        android:orderInCategory="200"
+        android:title="Private"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="300"
+        android:title="Profile"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="400"
         android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="500"
+        android:title="Login out"
         app:showAsAction="never" />
 </menu>

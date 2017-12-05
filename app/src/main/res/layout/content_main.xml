@@ -8,13 +8,70 @@
     tools:context="eduhollcs184assignments.ucsb.cs.httpwww.kongkong.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello friends!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userTV"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            android:text="Log out"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="303dp"
+            android:onClick="signOut"/>
+
+        <TextView
+            android:id="@+id/userTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="117dp"
+            android:text="user textView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/userIDTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="37dp"
+            android:text="userID textView" />
+
+        <TextView
+            android:id="@+id/userEmailTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/userIDTV"
+            android:layout_alignEnd="@+id/userIDTV"
+            android:layout_marginBottom="16dp"
+            android:text="userEmail textView" />
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/button2"
+            android:layout_centerVertical="true"
+            android:onClick="Post"
+            android:text="post" />
+
+    </RelativeLayout>
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
