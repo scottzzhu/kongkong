@@ -54,7 +54,8 @@ public class PostViewActivity extends AppCompatActivity {
                                 tmp.get("Location"),
                                 tmp.get("Title"),
                                 tmp.get("Description"),
-                                MainActivity.Category.toCategory(tmp.get("Topic")));
+                                MainActivity.Category.toCategory(tmp.get("Topic")),
+                                dataSnapshot.getKey());
                 Log.d("db","Email: "+tmp.get("Email"));
                 if(newPost.category == MainActivity.category)posts.add(newPost);
                 else if(MainActivity.category == ALL)posts.add(newPost);
