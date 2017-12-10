@@ -4,22 +4,12 @@
     <item
         android:id="@+id/action_public"
         android:orderInCategory="100"
-        android:title="public"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_private"
-        android:orderInCategory="200"
-        android:title="Private"
+        android:title="All posts"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
         android:orderInCategory="300"
         android:title="Profile"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="400"
-        android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
