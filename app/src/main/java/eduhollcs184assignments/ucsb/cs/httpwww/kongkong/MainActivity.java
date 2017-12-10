@@ -25,7 +25,40 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    enum Category {
+        LEASE, LUGGAGE, PARKING, PETS, RENTAL, OTHER, ALL;
 
+        public static Category toCategory(String s) {
+            Category tmp;
+            if (s == null) return OTHER;
+            switch (s) {
+                case "Luggage Stroage":
+                    tmp = LUGGAGE;
+                    break;
+                case "Parking":
+                    tmp = PARKING;
+                    break;
+                case "Pet Forsterage":
+                    tmp = PETS;
+                    break;
+                case "Short-Term Lease":
+                    tmp = LEASE;
+                    break;
+                case "Bike/Car Rental":
+                    tmp = RENTAL;
+                    break;
+                case "Others":
+                    tmp = OTHER;
+                    break;
+                default:
+                    tmp = OTHER;
+                    break;
+            }
+            return tmp;
+        }
+    }
+
+    public static Category category;
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseUser user = mAuth.getCurrentUser();
         Button logInBt = (Button) findViewById(R.id.button2);
 
-        if (user!=null) {
+        if (user != null) {
 
             String userID = user.getUid();
             String userEmail = user.getEmail();
@@ -71,13 +104,12 @@ public class MainActivity extends AppCompatActivity
             TextView userEmailTV = (TextView) findViewById(R.id.userEmailTV);
             userEmailTV.setText(userEmail);
             //navigation bar info
-            View header=navigationView.getHeaderView(0);
+            View header = navigationView.getHeaderView(0);
             TextView navUserEmail = (TextView) header.findViewById(R.id.userEmail);
             navUserEmail.setText(userEmail);
             TextView navUserID = (TextView) header.findViewById(R.id.userID);
             navUserID.setText(userID);
-        }
-        else{
+        } else {
             logInBt.setText("Login");
         }
     }
@@ -110,6 +142,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_public) {
+            category = Category.ALL;
+            Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -127,26 +165,38 @@ public class MainActivity extends AppCompatActivity
 
         //creating fragment object
         Fragment fragment = null;
-
+        Intent myIntent = null;
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_luggage:
-                fragment = new LuggageFragment();
+                category = Category.LUGGAGE;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_parking:
-                fragment = new ParkingFragment();
+                category = Category.PARKING;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_pets:
-                fragment = new PetsFragment();
+                category = Category.PETS;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_lease:
-                fragment = new LeaseFragment();
+                category = Category.LEASE;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_rental:
-                fragment = new RentalFragment();
+                category = Category.RENTAL;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_other:
-                fragment = new OtherFragment();
+                category = Category.OTHER;
+                myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+                startActivity(myIntent);
                 break;
             case R.id.nav_about:
                 fragment = new AboutFragment();
@@ -167,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    public void signOut(View view){
+    public void signOut(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(myIntent);
@@ -175,12 +225,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void Post(View view){
+    public void Post(View view) {
         Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
         startActivity(myIntent);
     }
 
-    public void gotoProfile(View view){
+    public void gotoProfile(View view) {
         Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(myIntent);
     }
