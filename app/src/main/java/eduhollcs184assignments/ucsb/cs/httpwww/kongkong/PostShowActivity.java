@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +52,10 @@ public class PostShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_post_show);
         title = (TextView) findViewById(R.id.postview_title);
         author = (TextView) findViewById(R.id.postview_author);
@@ -156,6 +161,13 @@ public class PostShowActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), PostViewActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 
 

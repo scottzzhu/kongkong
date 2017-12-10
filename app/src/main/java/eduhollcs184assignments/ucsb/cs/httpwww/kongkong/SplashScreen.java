@@ -36,10 +36,17 @@ public class SplashScreen extends AppCompatActivity {
 
         //updateUI(currentUser);
         if (currentUser != null && currentUser.isEmailVerified()){
-            Intent myIntent = new Intent(SplashScreen.this, MainActivity.class);
-            startActivity(myIntent);
-            finish();
-            Toast.makeText(this, "Already In", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent myIntent = new Intent(SplashScreen.this, MainActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                    Toast.makeText(SplashScreen.this, "Already In", Toast.LENGTH_SHORT).show();
+                }
+            },3000); // 3000 = 3seconds
+
         }
         else{
             //Toast.makeText(this, "Register Page", Toast.LENGTH_SHORT).show();

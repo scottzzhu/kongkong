@@ -60,6 +60,28 @@ public class MainActivity extends AppCompatActivity
 
     public static Category category;
     private FirebaseAuth mAuth;
+    FirebaseUser user;
+    private Menu menu2;
+    private MenuItem loginMenu;
+    private NavigationView navigationView;
+    private Button logInBt;
+    FloatingActionButton fab;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        this.menu2 = menu;
+
+        if (user == null){
+            loginMenu = menu2.findItem(R.id.action_logout);
+            MenuItem profileMenu = menu2.findItem(R.id.action_profile);
+            profileMenu.setEnabled(false);
+            loginMenu.setTitle("Login");
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +91,23 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
+            fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(user != null){
                 Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
                 startActivity(myIntent);
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Please sign in to unlock more features...",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,13 +116,19 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         //get navigation bar
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        Button logInBt = (Button) findViewById(R.id.button2);
+        user = mAuth.getCurrentUser();
+        logInBt = (Button) findViewById(R.id.button2);
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         if (user != null) {
 
             String userID = user.getUid();
@@ -108,10 +145,11 @@ public class MainActivity extends AppCompatActivity
             TextView navUserEmail = (TextView) header.findViewById(R.id.userEmail);
             navUserEmail.setText(userEmail);
             TextView navUserID = (TextView) header.findViewById(R.id.userID);
-            navUserID.setText(userID);
+            navUserID.setText("Welcome to Kong");
         } else {
             logInBt.setText("Login");
         }
+
     }
 
     @Override
@@ -124,12 +162,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,7 +172,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            category = Category.ALL;
+            Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_profile) {
+            category = Category.ALL;
+            Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(myIntent);
             return true;
         }
         if (id == R.id.action_public) {
@@ -148,6 +190,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(myIntent);
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -200,9 +243,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_about:
                 fragment = new AboutFragment();
-                break;
-            case R.id.nav_share:
-                fragment = new ShareFragment();
                 break;
         }
 

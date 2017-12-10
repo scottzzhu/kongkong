@@ -16,30 +16,33 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/post_location"
+                android:id="@+id/post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="16dp"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="10sp" />
+                android:textSize="20sp"
+                android:text="title"/>
+
+            <TextView
+                android:id="@+id/post_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_title"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp"
+                android:text="location"/>
 
             <TextView
                 android:id="@+id/post_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/post_location"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/post_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/post_email"
                 android:layout_marginEnd="20dp"
-                android:textSize="20sp" />
+                android:textSize="10sp"
+                android:text="email"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
