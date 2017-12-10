@@ -107,11 +107,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destextView5" />
+        app:layout_constraintTop_toBottomOf="@+id/destextView5"
+        />
+
 
 
     <Spinner
@@ -190,7 +192,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDate" />
-
 
 </android.support.constraint.ConstraintLayout>
 </ScrollView>

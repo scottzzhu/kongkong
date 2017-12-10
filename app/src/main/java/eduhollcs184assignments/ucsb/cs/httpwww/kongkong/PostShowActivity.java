@@ -2,23 +2,35 @@ package eduhollcs184assignments.ucsb.cs.httpwww.kongkong;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class PostShowActivity extends AppCompatActivity {
@@ -31,6 +43,9 @@ public class PostShowActivity extends AppCompatActivity {
     TextView location;
     TextView content;
     ImageButton email;
+    ImageView picshow;
+    Bitmap pic;
+    String p;
     Button delete;
     final String[] author_email = new String [1];
     @Override
@@ -42,6 +57,7 @@ public class PostShowActivity extends AppCompatActivity {
         location = (TextView) findViewById(R.id.postview_location);
         content = (TextView) findViewById(R.id.postview_content);
         email = (ImageButton) findViewById(R.id.email_button);
+        picshow =(ImageView) findViewById(R.id.picshow);
         delete = (Button) findViewById(R.id.delete_button);
         final String userEmail = mAuth.getCurrentUser().getEmail();
         Intent intent = getIntent();
@@ -56,6 +72,46 @@ public class PostShowActivity extends AppCompatActivity {
                     author_email[0] = tmp.get("Email");
                     location.setText(tmp.get("Location"));
                     content.setText(tmp.get("Description"));
+                    p = tmp.get("PictureUri");
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference mStorage = storage.getReference();
+                    StorageReference islandRef = mStorage.child("images/" + p);
+                    /*
+                    try {
+                        final File localFile = File.createTempFile("Images", "bmp");
+                        islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                // Local temp file has been created
+                                pic = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                picshow.setImageBitmap(pic);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    */
+
+                        final long ONE_MEGABYTE = 2048 * 2048;
+                        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                // Data for "images/island.jpg" is returns, use this as needed
+                                pic = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                picshow.setImageBitmap(pic);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
                     if (userEmail.equals(author_email[0]) == false){
                         delete.setVisibility(View.INVISIBLE);
                     }
@@ -67,6 +123,8 @@ public class PostShowActivity extends AppCompatActivity {
 
             }
         });
+
+
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +157,8 @@ public class PostShowActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 }
