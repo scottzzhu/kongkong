@@ -55,7 +55,8 @@
             android:name=".PostViewActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".PostShowActivity"></activity>
-      <meta-data
+
+        <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="eduhollcs184assignments.ucsb.cs.httpwww.kongkong.PostActivity">
+
+    <TextView
+        android:id="@+id/endDateSele"
+        android:layout_width="170dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/combo"
+        android:gravity="center"
+        android:onClick="setDate"
+        android:text="Please Select"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDate" />
 
     <TextView
         android:id="@+id/TitleView"
@@ -86,11 +107,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/destextView5" />
+        app:layout_constraintTop_toBottomOf="@+id/destextView5"
+        />
+
 
 
     <Spinner
@@ -112,10 +135,10 @@
         android:id="@+id/postbutton"
         android:layout_width="176dp"
         android:layout_height="148dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deseditText5"
         app:srcCompat="@drawable/post" />
@@ -130,4 +153,45 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/startDate"
+        android:layout_width="88dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/combo"
+        android:text="Start Date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deseditText5" />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="82dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/combo"
+        android:text="End Date"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deseditText5" />
+
+    <TextView
+        android:id="@+id/startDateSele"
+        android:layout_width="170dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/combo"
+        android:gravity="center"
+        android:onClick="setDate"
+        android:text="Please Select"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDate" />
+
 </android.support.constraint.ConstraintLayout>
+</ScrollView>
