@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +29,7 @@ public class RegisterActivity extends Activity {
     private FirebaseAuth mAuth;
     private EditText password;
     private EditText email;
-    private Button button;
+    private ImageView button;
     private String myEmail;
     public static Toast myToast;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -46,7 +49,7 @@ public class RegisterActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.email);
-        button = (Button) findViewById(R.id.registerButton);
+        button = (ImageView) findViewById(R.id.registerButton);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -70,6 +73,13 @@ public class RegisterActivity extends Activity {
 
 
     public void createAccount(View view) {
+
+        final Animation myAnim = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        button.startAnimation(myAnim);
 
         myEmail = email.getText().toString();
         final String myPass = password.getText().toString();
