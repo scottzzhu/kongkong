@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,11 +38,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
@@ -62,6 +57,7 @@ public class PostActivity extends AppCompatActivity {
     Button post;
 
     String pic_uri;
+    ImageView show;
 
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -76,10 +72,6 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         if (ContextCompat.checkSelfPermission(PostActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PostActivity.this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
@@ -99,7 +91,7 @@ public class PostActivity extends AppCompatActivity {
         //Email = (EditText) findViewById(R.id.emaileditText4);
         Description = (EditText) findViewById(R.id.deseditText5);
         button = (ImageView) findViewById(R.id.postbutton);
-        post = (Button) findViewById(R.id.button3);
+        show = (ImageView) findViewById(R.id.imagechoiceshow);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -107,7 +99,7 @@ public class PostActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-        post.setOnClickListener(new View.OnClickListener() {
+        show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -133,35 +125,17 @@ public class PostActivity extends AppCompatActivity {
                 String l = Location.getText().toString();
                 String d = Description.getText().toString();
                 String s = spinner.getSelectedItem().toString();
-                //get start and end date
                 dateView = (TextView) findViewById(R.id.startDateSele);
                 String sdate = dateView.getText().toString();
                 dateView = (TextView) findViewById(R.id.endDateSele);
                 String edate = dateView.getText().toString();
-                //check any missing field
-                if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d) ||
-                        sdate.equals("Please Select") || edate.equals("Please Select"))
+
+                if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d) || s.equals("Please select a topic"))
                 {
                     Toast.makeText(getApplicationContext(), "Missing information",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                //check date
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                Date startDate = new Date();
-                Date endDate = new Date();
-                try {
-                    startDate = df.parse(sdate);
-                    endDate = df.parse(edate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if(startDate.after(endDate)){
-                    Toast.makeText(getApplicationContext(), "Start date is after end date",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-
 
                 String p = pic_uri;
 
@@ -210,24 +184,8 @@ public class PostActivity extends AppCompatActivity {
                 }
             };
     private void showDate(int year, int month, int day) {
-        StringBuilder date = new StringBuilder();
-        if (month < 10){
-            date.append("0");
-        }
-        date.append(month).append("/");
-        if (day < 10){
-            date.append("0");
-        }
-        date.append(day).append("/");
-        date.append(year);
-        dateView.setText(date);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
-        return true;
-
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
     }
 
 
@@ -242,7 +200,7 @@ public class PostActivity extends AppCompatActivity {
                 //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
                 pic_uri = String.valueOf(uri.getLastPathSegment() + ".jpg");
 
-                button.setImageURI(uri);
+                show.setImageURI(uri);
 
                 //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
                 StorageReference fileName = mStorage.child("images/" + uri.getLastPathSegment() + ".jpg");
@@ -264,7 +222,6 @@ public class PostActivity extends AppCompatActivity {
             else
                 return;
         }
-
 
     }
 }

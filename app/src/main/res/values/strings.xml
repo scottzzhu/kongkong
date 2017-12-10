@@ -28,7 +28,7 @@
     </string>
 
     <string-array name="choices">
-
+        <item>Please select a topic</item>
         <item>Luggage Stroage</item>
         <item>Parking</item>
         <item>Pet Forsterage</item>
