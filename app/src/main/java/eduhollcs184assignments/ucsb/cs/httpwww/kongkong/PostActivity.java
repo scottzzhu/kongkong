@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -45,6 +46,9 @@ public class PostActivity extends AppCompatActivity {
     EditText Title, Location, Email, Description;
     ImageView button;
     Button post;
+
+    String pic_uri;
+
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference mStorage = storage.getReference();
@@ -98,17 +102,23 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final Animation myAnim = AnimationUtils.loadAnimation(PostActivity.this, R.anim.bounce);
-
                 // Use bounce interpolator with amplitude 0.2 and frequency 20
                 MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
                 myAnim.setInterpolator(interpolator);
                 button.startAnimation(myAnim);
                 String t = Title.getText().toString();
                 String l = Location.getText().toString();
-                //String e = Email.getText().toString();
                 String d = Description.getText().toString();
                 String s = spinner.getSelectedItem().toString();
 
+                if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d))
+                {
+                    Toast.makeText(getApplicationContext(), "Missing information",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                String p = pic_uri;
 
                 HashMap<String,String> posts_map = new HashMap<>();
                 posts_map.put("Title", t);
@@ -116,10 +126,12 @@ public class PostActivity extends AppCompatActivity {
                 posts_map.put("Email", email);
                 posts_map.put("Description", d);
                 posts_map.put("Topic", s);
+                posts_map.put("PictureUri", p);
 
                 postRef.push().setValue(posts_map);
 
-
+                Intent myIntent = new Intent(PostActivity.this, MainActivity.class);
+                startActivity(myIntent);
             }
         });
 
@@ -135,6 +147,8 @@ public class PostActivity extends AppCompatActivity {
             if (data != null) {
                 uri = data.getData();
                 //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
+                pic_uri = String.valueOf(uri.getLastPathSegment() + ".jpg");
+
                 button.setImageURI(uri);
 
                 //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
