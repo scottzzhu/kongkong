@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,7 @@ public class PostViewActivity extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference rootRef = db.getReference();
     DatabaseReference postRef = rootRef.child("Posts");
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,23 @@ public class PostViewActivity extends AppCompatActivity {
         rv.setLayoutManager(llm);
         PostViewAdapter adapter = new PostViewAdapter(posts);
         rv.setAdapter(adapter);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab2);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user != null){
+                    Intent myIntent = new Intent(PostViewActivity.this, PostActivity.class);
+                    startActivity(myIntent);
+                }
+                else{
+                    Toast.makeText(PostViewActivity.this, "Please sign in to unlock more features...",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         postRef.addChildEventListener(new ChildEventListener() {
             @Override
