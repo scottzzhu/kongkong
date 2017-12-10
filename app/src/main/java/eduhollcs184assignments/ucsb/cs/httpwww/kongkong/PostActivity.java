@@ -38,7 +38,11 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
@@ -124,17 +128,35 @@ public class PostActivity extends AppCompatActivity {
                 String l = Location.getText().toString();
                 String d = Description.getText().toString();
                 String s = spinner.getSelectedItem().toString();
+                //get start and end date
                 dateView = (TextView) findViewById(R.id.startDateSele);
                 String sdate = dateView.getText().toString();
                 dateView = (TextView) findViewById(R.id.endDateSele);
                 String edate = dateView.getText().toString();
-
-                if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d))
+                //check any missing field
+                if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d) ||
+                        sdate.equals("Please Select") || edate.equals("Please Select"))
                 {
                     Toast.makeText(getApplicationContext(), "Missing information",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
+                //check date
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                Date startDate = new Date();
+                Date endDate = new Date();
+                try {
+                    startDate = df.parse(sdate);
+                    endDate = df.parse(edate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(startDate.after(endDate)){
+                    Toast.makeText(getApplicationContext(), "Start date is after end date",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
 
                 String p = pic_uri;
 
@@ -183,8 +205,17 @@ public class PostActivity extends AppCompatActivity {
                 }
             };
     private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+        StringBuilder date = new StringBuilder();
+        if (month < 10){
+            date.append("0");
+        }
+        date.append(month).append("/");
+        if (day < 10){
+            date.append("0");
+        }
+        date.append(day).append("/");
+        date.append(year);
+        dateView.setText(date);
     }
 
 
