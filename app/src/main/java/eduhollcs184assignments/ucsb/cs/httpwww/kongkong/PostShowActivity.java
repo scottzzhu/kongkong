@@ -1,11 +1,14 @@
 package eduhollcs184assignments.ucsb.cs.httpwww.kongkong;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +31,7 @@ public class PostShowActivity extends AppCompatActivity {
     TextView location;
     TextView content;
     ImageButton email;
+    Button delete;
     final String[] author_email = new String [1];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,10 @@ public class PostShowActivity extends AppCompatActivity {
         location = (TextView) findViewById(R.id.postview_location);
         content = (TextView) findViewById(R.id.postview_content);
         email = (ImageButton) findViewById(R.id.email_button);
-
+        delete = (Button) findViewById(R.id.delete_button);
+        final String userEmail = mAuth.getCurrentUser().getEmail();
         Intent intent = getIntent();
-        String post_id = intent.getStringExtra("ID");
+        final String post_id = intent.getStringExtra("ID");
         postRef.orderByKey().equalTo(post_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -51,6 +56,9 @@ public class PostShowActivity extends AppCompatActivity {
                     author_email[0] = tmp.get("Email");
                     location.setText(tmp.get("Location"));
                     content.setText(tmp.get("Description"));
+                    if (userEmail.equals(author_email[0]) == false){
+                        delete.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 
@@ -62,15 +70,32 @@ public class PostShowActivity extends AppCompatActivity {
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailAdd = mAuth.getCurrentUser().getEmail();
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 System.out.println(author_email[0]);
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{author_email[0]});
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Message From Kong");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "I am interested in your post ...");
-
                 emailIntent.setType("message/rfc882");
                 startActivity(Intent.createChooser(emailIntent, "Choose email client..."));
+            }
+        });
+        final Context context = getApplicationContext();
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = (String) delete.getText();
+                System.out.println(text);
+
+                if(text.equals("Delete")){
+                    delete.setText("Confirm");
+                }
+                else if(text.equals("Confirm")){
+                DatabaseReference delete_node = postRef.child(post_id);
+                delete_node.removeValue();
+                Toast.makeText(context, "Post deleted", Toast.LENGTH_SHORT).show();
+                Intent backIntent =new Intent(context, MainActivity.class);
+                context.startActivity(backIntent);
+                }
             }
         });
     }
