@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     enum Category {
-        LEASE, LUGGAGE, PARKING, PETS, RENTAL, OTHER, ALL;
+        LEASE, LUGGAGE, PARKING, PETS, RENTAL, OTHER, ALL, SELF;
 
         public static Category toCategory(String s) {
             Category tmp;
