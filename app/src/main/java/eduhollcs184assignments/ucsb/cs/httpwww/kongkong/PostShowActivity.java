@@ -44,6 +44,7 @@ public class PostShowActivity extends AppCompatActivity {
     TextView author;
     TextView location;
     TextView content;
+    TextView time;
     ImageButton email;
     ImageView picshow;
     Bitmap pic;
@@ -62,6 +63,7 @@ public class PostShowActivity extends AppCompatActivity {
         author = (TextView) findViewById(R.id.postview_author);
         location = (TextView) findViewById(R.id.postview_location);
         content = (TextView) findViewById(R.id.postview_content);
+        time = (TextView) findViewById(R.id.avaliable_time);
         email = (ImageButton) findViewById(R.id.email_button);
         picshow =(ImageView) findViewById(R.id.picshow);
         delete = (Button) findViewById(R.id.delete_button);
@@ -86,6 +88,8 @@ public class PostShowActivity extends AppCompatActivity {
                     author_email[0] = tmp.get("Email");
                     location.setText(tmp.get("Location"));
                     content.setText(tmp.get("Description"));
+                    String ava_time = tmp.get("Start Date") + " to " + tmp.get("End Date");
+                    time.setText(ava_time);
                     p = tmp.get("PictureUri");
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference mStorage = storage.getReference();
