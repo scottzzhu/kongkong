@@ -42,6 +42,7 @@ import org.w3c.dom.Text;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -165,7 +166,7 @@ public class PostActivity extends AppCompatActivity {
 
                 String p = pic_uri;
 
-                HashMap<String,String> posts_map = new HashMap<>();
+                HashMap<String,Object> posts_map = new HashMap<>();
                 posts_map.put("Title", t);
                 posts_map.put("Location", l);
                 posts_map.put("Email", email);
@@ -174,6 +175,7 @@ public class PostActivity extends AppCompatActivity {
                 posts_map.put("PictureUri", p);
                 posts_map.put("Start Date", sdate);
                 posts_map.put("End Date", edate);
+                posts_map.put("Like List", new ArrayList<String>());
 
                 postRef.push().setValue(posts_map);
 
