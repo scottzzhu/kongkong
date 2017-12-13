@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -58,7 +59,7 @@ public class PostActivity extends AppCompatActivity {
     private Calendar calendar;
     EditText Title, Location, Email, Description;
     ImageView button;
-    Button post;
+    ImageView post;
 
     String pic_uri;
 
@@ -75,6 +76,10 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         if (ContextCompat.checkSelfPermission(PostActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(PostActivity.this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
@@ -94,7 +99,7 @@ public class PostActivity extends AppCompatActivity {
         //Email = (EditText) findViewById(R.id.emaileditText4);
         Description = (EditText) findViewById(R.id.deseditText5);
         button = (ImageView) findViewById(R.id.postbutton);
-        post = (Button) findViewById(R.id.button3);
+        post = (ImageView) findViewById(R.id.button3);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -218,6 +223,13 @@ public class PostActivity extends AppCompatActivity {
         dateView.setText(date);
     }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -230,7 +242,7 @@ public class PostActivity extends AppCompatActivity {
                 //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
                 pic_uri = String.valueOf(uri.getLastPathSegment() + ".jpg");
 
-                button.setImageURI(uri);
+                post.setImageURI(uri);
 
                 //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
                 StorageReference fileName = mStorage.child("images/" + uri.getLastPathSegment() + ".jpg");
@@ -252,6 +264,7 @@ public class PostActivity extends AppCompatActivity {
             else
                 return;
         }
+
 
     }
 }

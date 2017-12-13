@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
@@ -51,6 +53,10 @@ public class PostShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_post_show);
         title = (TextView) findViewById(R.id.postview_title);
         author = (TextView) findViewById(R.id.postview_author);
@@ -59,7 +65,15 @@ public class PostShowActivity extends AppCompatActivity {
         email = (ImageButton) findViewById(R.id.email_button);
         picshow =(ImageView) findViewById(R.id.picshow);
         delete = (Button) findViewById(R.id.delete_button);
-        final String userEmail = mAuth.getCurrentUser().getEmail();
+        final String[] userEmail = new String[1];
+        if(mAuth.getCurrentUser() != null){
+            userEmail[0]=mAuth.getCurrentUser().getEmail();
+        }
+        else{
+            userEmail[0]="";
+            Toast.makeText(getApplicationContext(), "You need to login to see pictures", Toast.LENGTH_LONG).show();
+
+        }
         Intent intent = getIntent();
         final String post_id = intent.getStringExtra("ID");
         postRef.orderByKey().equalTo(post_id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,6 +117,7 @@ public class PostShowActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(byte[] bytes) {
                                 // Data for "images/island.jpg" is returns, use this as needed
+                                System.out.println("picture loaded");
                                 pic = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 picshow.setImageBitmap(pic);
                             }
@@ -112,7 +127,9 @@ public class PostShowActivity extends AppCompatActivity {
                                 // Handle any errors
                             }
                         });
-                    if (userEmail.equals(author_email[0]) == false){
+
+
+                    if (userEmail[0].equals(author_email[0]) == false){
                         delete.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -156,6 +173,13 @@ public class PostShowActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), PostViewActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 
 

@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         //Remove title bar
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Remove notification
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
