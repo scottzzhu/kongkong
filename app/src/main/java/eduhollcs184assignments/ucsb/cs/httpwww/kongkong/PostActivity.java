@@ -59,7 +59,7 @@ public class PostActivity extends AppCompatActivity {
     private Calendar calendar;
     EditText Title, Location, Email, Description;
     ImageView button;
-    Button post;
+    ImageView post;
 
     String pic_uri;
 
@@ -99,7 +99,7 @@ public class PostActivity extends AppCompatActivity {
         //Email = (EditText) findViewById(R.id.emaileditText4);
         Description = (EditText) findViewById(R.id.deseditText5);
         button = (ImageView) findViewById(R.id.postbutton);
-        post = (Button) findViewById(R.id.button3);
+        post = (ImageView) findViewById(R.id.button3);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -242,7 +242,7 @@ public class PostActivity extends AppCompatActivity {
                 //Log.i("uriiiiii",String.valueOf(uri.getLastPathSegment()));
                 pic_uri = String.valueOf(uri.getLastPathSegment() + ".jpg");
 
-                button.setImageURI(uri);
+                post.setImageURI(uri);
 
                 //StorageReference fileName = mStorage.child("Photos/" + uri.getLastPathSegment() + ".png");
                 StorageReference fileName = mStorage.child("images/" + uri.getLastPathSegment() + ".jpg");
