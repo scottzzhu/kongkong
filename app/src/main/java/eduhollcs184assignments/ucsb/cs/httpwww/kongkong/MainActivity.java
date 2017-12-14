@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
             return tmp;
         }
 
-        public static String toString(Category c){
+        public static String toString(Category c) {
             String tmp;
             if (c == null) return "Others";
             switch (c) {
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu2 = menu;
 
-        if (user == null){
+        if (user == null) {
             loginMenu = menu2.findItem(R.id.action_logout);
             MenuItem profileMenu = menu2.findItem(R.id.action_profile);
             profileMenu.setEnabled(false);
@@ -142,20 +142,19 @@ public class MainActivity extends AppCompatActivity
 
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
-            fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null){
-                Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
-                startActivity(myIntent);
-                }
-                else{
+                if (user != null) {
+                    Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
+                    startActivity(myIntent);
+                } else {
                     Toast.makeText(MainActivity.this, "Please sign in to unlock more features...",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -217,7 +216,6 @@ public class MainActivity extends AppCompatActivity
             //super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -348,11 +346,14 @@ public class MainActivity extends AppCompatActivity
         my.startAnimation(myAnim);
 
         //add code for mypost
-
-        category = Category.SELF;
-        Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
-        startActivity(myIntent);
-
+        if (user == null) {
+            Toast.makeText(MainActivity.this, "Please sign in to unlock more features...",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            category = Category.SELF;
+            Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+            startActivity(myIntent);
+        }
     }
 
     public void logo(View view) {
@@ -362,6 +363,7 @@ public class MainActivity extends AppCompatActivity
         myAnim.setInterpolator(interpolator);
         lo.startAnimation(myAnim);
     }
+
     public void gotoProfile(View view) {
         Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(myIntent);
