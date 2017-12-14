@@ -1,11 +1,18 @@
 package eduhollcs184assignments.ucsb.cs.httpwww.kongkong;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,12 +23,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,8 +80,11 @@ public class MainActivity extends AppCompatActivity
     private Menu menu2;
     private MenuItem loginMenu;
     private NavigationView navigationView;
-    private Button logInBt;
+    private ImageView logInBt;
     FloatingActionButton fab;
+    Uri uri;
+    Bitmap img;
+    //Uri uri_ini = Uri.parse("eduhollcs184assignments.ucsb.cs.httpwww.kongkong/drawable/picture");
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +109,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -121,10 +144,11 @@ public class MainActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        logInBt = (Button) findViewById(R.id.button2);
+        logInBt = (ImageView) findViewById(R.id.button2);
 
 
     }
+
 
     @Override
     public void onStart() {
@@ -134,12 +158,12 @@ public class MainActivity extends AppCompatActivity
             String userID = user.getUid();
             String userEmail = user.getEmail();
 
-            TextView userTV = (TextView) findViewById(R.id.userTV);
-            userTV.setText(user.toString());
-            TextView userIDTV = (TextView) findViewById(R.id.userIDTV);
-            userIDTV.setText(userID);
-            TextView userEmailTV = (TextView) findViewById(R.id.userEmailTV);
-            userEmailTV.setText(userEmail);
+            //TextView userTV = (TextView) findViewById(R.id.userTV);
+            //userTV.setText(user.toString());
+            //TextView userIDTV = (TextView) findViewById(R.id.userIDTV);
+            //userIDTV.setText(userID);
+            //TextView userEmailTV = (TextView) findViewById(R.id.userEmailTV);
+            //userEmailTV.setText(userEmail);
             //navigation bar info
             View header = navigationView.getHeaderView(0);
             TextView navUserEmail = (TextView) header.findViewById(R.id.userEmail);
@@ -147,7 +171,8 @@ public class MainActivity extends AppCompatActivity
             TextView navUserID = (TextView) header.findViewById(R.id.userID);
             navUserID.setText("Welcome to Kong");
         } else {
-            logInBt.setText("Login");
+            //logInBt.setText("Login");
+            logInBt.setImageDrawable(getDrawable(R.drawable.logincloud));
         }
 
     }
@@ -181,12 +206,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_profile) {
             category = Category.ALL;
             Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(myIntent);
-            return true;
-        }
-        if (id == R.id.action_public) {
-            category = Category.ALL;
-            Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
             startActivity(myIntent);
             return true;
         }
@@ -258,6 +277,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void signOut(View view) {
+        ImageView out = (ImageView) findViewById(R.id.button2);
+        final Animation myAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        out.startAnimation(myAnim);
+
+
         FirebaseAuth.getInstance().signOut();
         Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(myIntent);
@@ -265,11 +293,39 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void Post(View view) {
-        Intent myIntent = new Intent(MainActivity.this, PostActivity.class);
+
+    public void AllPost(View view) {
+        ImageView login = (ImageView) findViewById(R.id.allpost);
+        final Animation myAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        login.startAnimation(myAnim);
+
+        Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
         startActivity(myIntent);
+
     }
 
+    public void myPost(View view) {
+        ImageView my = (ImageView) findViewById(R.id.mypost);
+        final Animation myAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        my.startAnimation(myAnim);
+
+        //add code for mypost
+
+    }
+
+    public void logo(View view) {
+        ImageView lo = (ImageView) findViewById(R.id.addimage);
+        final Animation myAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        lo.startAnimation(myAnim);
+    }
     public void gotoProfile(View view) {
         Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(myIntent);

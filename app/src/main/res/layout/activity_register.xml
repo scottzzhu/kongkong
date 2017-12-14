@@ -84,23 +84,27 @@
             android:text="Forget password?"
             android:onClick="reset"/>
 
-        <TextView
-            android:id="@+id/skipTV2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:text="Just Look Around"
-            android:onClick="anonymousLogin"/>
-
         <ImageView
             android:id="@+id/LikeButton"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="54dp"
             android:src="@drawable/splash" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="61dp"
+            android:layout_toEndOf="@+id/registerButton"
+            android:onClick="anonymousLogin"
+            android:src="@drawable/lookaround" />
 
 
     </RelativeLayout>
