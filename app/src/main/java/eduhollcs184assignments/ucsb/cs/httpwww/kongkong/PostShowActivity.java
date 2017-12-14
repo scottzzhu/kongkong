@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PostShowActivity extends AppCompatActivity {
@@ -44,8 +47,12 @@ public class PostShowActivity extends AppCompatActivity {
     TextView author;
     TextView location;
     TextView content;
+    TextView time;
     ImageButton email;
+    ImageButton like;
     ImageView picshow;
+    ArrayList<String> like_list;
+    TextView like_number;
     Bitmap pic;
     String p;
     Button delete;
@@ -62,9 +69,12 @@ public class PostShowActivity extends AppCompatActivity {
         author = (TextView) findViewById(R.id.postview_author);
         location = (TextView) findViewById(R.id.postview_location);
         content = (TextView) findViewById(R.id.postview_content);
+        time = (TextView) findViewById(R.id.avaliable_time);
         email = (ImageButton) findViewById(R.id.email_button);
         picshow =(ImageView) findViewById(R.id.picshow);
         delete = (Button) findViewById(R.id.delete_button);
+        like= (ImageButton) findViewById(R.id.like_button);
+        like_number = (TextView) findViewById(R.id.likeNumber);
         final String[] userEmail = new String[1];
         if(mAuth.getCurrentUser() != null){
             userEmail[0]=mAuth.getCurrentUser().getEmail();
@@ -74,19 +84,28 @@ public class PostShowActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You need to login to see pictures", Toast.LENGTH_LONG).show();
 
         }
+
         Intent intent = getIntent();
         final String post_id = intent.getStringExtra("ID");
         postRef.orderByKey().equalTo(post_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    HashMap<String,String> tmp = (HashMap<String,String>) ds.getValue();
-                    title.setText(tmp.get("Title"));
-                    author.setText(tmp.get("Email"));
-                    author_email[0] = tmp.get("Email");
-                    location.setText(tmp.get("Location"));
-                    content.setText(tmp.get("Description"));
-                    p = tmp.get("PictureUri");
+                    HashMap<String,Object> tmp = (HashMap<String,Object>) ds.getValue();
+                    title.setText((String) tmp.get("Title"));
+                    author.setText((String)tmp.get("Email"));
+                    author_email[0] = (String) tmp.get("Email");
+                    location.setText((String) tmp.get("Location"));
+                    content.setText((String) tmp.get("Description"));
+                    String ava_time = tmp.get("Start Date") + " to " + tmp.get("End Date");
+                    time.setText(ava_time);
+                    like_list = (ArrayList<String>) tmp.get("Like List");
+                    if(like_list.contains(userEmail[0])){
+                        like.setEnabled(false);
+                    }
+                    String like_num = like_list.size()-1 + "";
+                    like_number.setText(like_num);
+                    p = (String) tmp.get("PictureUri");
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference mStorage = storage.getReference();
                     StorageReference islandRef = mStorage.child("images/" + p);
@@ -159,8 +178,6 @@ public class PostShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String text = (String) delete.getText();
-                System.out.println(text);
-
                 if(text.equals("Delete")){
                     delete.setText("Confirm");
                 }
@@ -171,6 +188,21 @@ public class PostShowActivity extends AppCompatActivity {
                 Intent backIntent =new Intent(context, MainActivity.class);
                 context.startActivity(backIntent);
                 }
+            }
+        });
+
+        if (mAuth.getCurrentUser() == null){
+            like.setVisibility(View.INVISIBLE);
+        }
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               DatabaseReference likeRef = postRef.child(post_id).child("Like List");
+               like_list.add(userEmail[0]);
+               likeRef.setValue(like_list);
+               String like_num = like_list.size()-1 + "";
+               like_number.setText(like_num);
+               like.setEnabled(false);
             }
         });
     }

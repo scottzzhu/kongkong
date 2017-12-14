@@ -26,15 +26,17 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         String title;
         String desc;
         String ID;
+        int like_number;
         MainActivity.Category category;
 
-        public Post(String email, String location, String title, String desc, MainActivity.Category category, String ID) {
+        public Post(String email, String location, String title, String desc, MainActivity.Category category, String ID, int like_number) {
             this.email = email;
             this.location = location;
             this.title = title;
             this.desc = desc;
             this.category = category;
             this.ID = ID;
+            this.like_number = like_number;
         }
     }
 
@@ -60,6 +62,8 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         holder.postEmail.setText(postList.get(position).email);
         holder.postLocation.setText(postList.get(position).location);
         holder.postTitle.setText(postList.get(position).title);
+        String num = postList.get(position).like_number-1+"";
+        holder.postLike.setText(num);
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +93,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         TextView postEmail;
         TextView postLocation;
         TextView postTitle;
+        TextView postLike;
 
         public PostViewHolder(View itemView) {
             super(itemView);
@@ -96,6 +101,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
             postEmail = itemView.findViewById(R.id.post_email);
             postLocation = itemView.findViewById(R.id.post_location);
             postTitle = itemView.findViewById(R.id.post_title);
+            postLike = itemView.findViewById(R.id.card_like_num);
         }
     }
 }

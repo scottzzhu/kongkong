@@ -84,14 +84,16 @@ public class PostViewActivity extends AppCompatActivity {
         postRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                HashMap<String, String> tmp = (HashMap<String, String>) dataSnapshot.getValue();
+                HashMap<String, Object> tmp = (HashMap<String, Object>) dataSnapshot.getValue();
+                int likeNumber = ((ArrayList<String>) tmp.get("Like List")).size();
                 PostViewAdapter.Post newPost =
-                        new PostViewAdapter.Post(tmp.get("Email"),
-                                tmp.get("Location"),
-                                tmp.get("Title"),
-                                tmp.get("Description"),
-                                MainActivity.Category.toCategory(tmp.get("Topic")),
-                                dataSnapshot.getKey());
+                        new PostViewAdapter.Post((String) tmp.get("Email"),
+                                (String)  tmp.get("Location"),
+                                (String) tmp.get("Title"),
+                                (String) tmp.get("Description"),
+                                MainActivity.Category.toCategory((String) tmp.get("Topic")),
+                                dataSnapshot.getKey(),
+                                likeNumber);
                 Log.d("db","Email: "+tmp.get("Email"));
                 if(newPost.category == MainActivity.category)posts.add(newPost);
                 else if(MainActivity.category == ALL)posts.add(newPost);
