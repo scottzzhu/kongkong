@@ -230,6 +230,8 @@ public class MainActivity extends AppCompatActivity
             category = Category.ALL;
             Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(myIntent);
+            FirebaseAuth.getInstance().signOut();
+            finish();
             return true;
         }
         if (id == R.id.action_profile) {

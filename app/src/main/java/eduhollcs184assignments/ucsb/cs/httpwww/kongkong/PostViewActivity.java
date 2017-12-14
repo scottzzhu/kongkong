@@ -147,9 +147,20 @@ public class PostViewActivity extends AppCompatActivity {
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+
+        if (id == R.id.action_logout) {
+            Intent myIntent = new Intent(PostViewActivity.this, LoginActivity.class);
+            startActivity(myIntent);
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            return true;
+        }
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
-        return true;
+
+
+        return super.onOptionsItemSelected(item);
 
     }
 
