@@ -127,8 +127,6 @@ public class PostViewActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu2 = menu;
 
-        MenuItem publicMenu = menu2.findItem(R.id.action_public);
-        publicMenu.setVisible(false);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 

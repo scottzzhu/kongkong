@@ -133,6 +133,7 @@ public class PostActivity extends AppCompatActivity {
                 String l = Location.getText().toString();
                 String d = Description.getText().toString();
                 String s = spinner.getSelectedItem().toString();
+
                 //get start and end date
                 dateView = (TextView) findViewById(R.id.startDateSele);
                 String sdate = dateView.getText().toString();
@@ -140,7 +141,7 @@ public class PostActivity extends AppCompatActivity {
                 String edate = dateView.getText().toString();
                 //check any missing field
                 if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d) ||
-                        sdate.equals("Please Select") || edate.equals("Please Select"))
+                        sdate.equals("Please Select") || edate.equals("Please Select") || s.equals("Please select a topic..."))
                 {
                     Toast.makeText(getApplicationContext(), "Missing information",
                             Toast.LENGTH_LONG).show();
