@@ -100,9 +100,6 @@ public class PostShowActivity extends AppCompatActivity {
                     String ava_time = tmp.get("Start Date") + " to " + tmp.get("End Date");
                     time.setText(ava_time);
                     like_list = (ArrayList<String>) tmp.get("Like List");
-                    if(like_list.contains(userEmail[0])){
-                        like.setEnabled(false);
-                    }
                     String like_num = like_list.size()-1 + "";
                     like_number.setText(like_num);
                     p = (String) tmp.get("PictureUri");

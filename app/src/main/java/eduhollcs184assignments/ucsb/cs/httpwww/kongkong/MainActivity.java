@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity
             Category tmp;
             if (s == null) return OTHER;
             switch (s) {
-                case "Luggage Stroage":
+                case "Luggage Storage":
                     tmp = LUGGAGE;
                     break;
                 case "Parking":
                     tmp = PARKING;
                     break;
-                case "Pet Forsterage":
+                case "Pet Fosterage":
                     tmp = PETS;
                     break;
                 case "Short-Term Lease":
@@ -71,6 +71,37 @@ public class MainActivity extends AppCompatActivity
                     break;
             }
             return tmp;
+        }
+
+        public static String toString(Category c){
+            String tmp;
+            if (c == null) return "Others";
+            switch (c) {
+                case LUGGAGE:
+                    tmp = "Luggage Storage";
+                    break;
+                case PARKING:
+                    tmp = "Parking";
+                    break;
+                case PETS:
+                    tmp = "Pet Fosterage";
+                    break;
+                case LEASE:
+                    tmp = "Short-Term Lease";
+                    break;
+                case RENTAL:
+                    tmp = "Bike/Car Rental";
+                    break;
+                case OTHER:
+                    tmp = "Others";
+                    break;
+                default:
+                    tmp = "Others";
+                    break;
+            }
+            return tmp;
+
+
         }
     }
 
@@ -183,7 +214,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
     }
 
