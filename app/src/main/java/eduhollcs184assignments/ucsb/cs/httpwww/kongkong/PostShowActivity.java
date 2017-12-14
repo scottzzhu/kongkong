@@ -69,7 +69,7 @@ public class PostShowActivity extends AppCompatActivity {
         author = (TextView) findViewById(R.id.postview_author);
         location = (TextView) findViewById(R.id.postview_location);
         content = (TextView) findViewById(R.id.postview_content);
-        time = (TextView) findViewById(R.id.avaliable_time);
+        time = (TextView) findViewById(R.id.available_time);
         email = (ImageButton) findViewById(R.id.email_button);
         picshow =(ImageView) findViewById(R.id.picshow);
         delete = (Button) findViewById(R.id.delete_button);

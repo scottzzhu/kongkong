@@ -11,21 +11,6 @@
     android:layout_height="match_parent"
     tools:context="eduhollcs184assignments.ucsb.cs.httpwww.kongkong.PostActivity">
 
-    <TextView
-        android:id="@+id/endDateSele"
-        android:layout_width="170dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/combo"
-        android:gravity="center"
-        android:onClick="setDate"
-        android:text="Please Select"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endDate" />
 
     <TextView
         android:id="@+id/TitleView"
@@ -153,7 +138,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDateSele"
+        app:layout_constraintTop_toBottomOf="@+id/startDate"
         app:srcCompat="@drawable/smallpic" />
 
     <TextView
@@ -164,7 +149,8 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/combo"
         android:text="Start Date"
-        android:textSize="18sp"
+        android:onClick="setDate"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deseditText5" />
 
@@ -176,25 +162,11 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/combo"
         android:text="End Date"
-        android:textSize="18sp"
+        android:onClick="setDate"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deseditText5" />
 
-    <TextView
-        android:id="@+id/startDateSele"
-        android:layout_width="170dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/combo"
-        android:gravity="center"
-        android:onClick="setDate"
-        android:text="Please Select"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDate" />
 
 
 
