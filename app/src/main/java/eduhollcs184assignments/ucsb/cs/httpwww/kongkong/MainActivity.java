@@ -303,6 +303,7 @@ public class MainActivity extends AppCompatActivity
         myAnim.setInterpolator(interpolator);
         login.startAnimation(myAnim);
 
+        category = Category.ALL;
         Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
         startActivity(myIntent);
 
@@ -316,6 +317,10 @@ public class MainActivity extends AppCompatActivity
         my.startAnimation(myAnim);
 
         //add code for mypost
+
+        category = Category.SELF;
+        Intent myIntent = new Intent(MainActivity.this, PostViewActivity.class);
+        startActivity(myIntent);
 
     }
 
