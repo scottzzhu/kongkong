@@ -46,14 +46,15 @@
             android:onClick="changeAct"
             android:text="BACK" />
 
-        <TextView
-            android:id="@+id/skipTV3"
+
+        <ImageView
+            android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:text="Just Look Around"
-            android:onClick="anonymousLogin"/>
+            android:layout_toEndOf="@+id/textViewSignin2"
+            android:onClick="anonymousLogin"
+            app:srcCompat="@drawable/lookaround" />
 
     </RelativeLayout>
 

@@ -98,8 +98,9 @@ public class PostViewActivity extends AppCompatActivity {
                 if(newPost.category == MainActivity.category)posts.add(newPost);
                 else if(MainActivity.category == ALL)posts.add(newPost);
                 else {
-                    Log.d("db", "Post Email: "+tmp.get("Email")+" User Email: "+user.getEmail());
-                    if(user != null && MainActivity.category == SELF && newPost.email.equals(user.getEmail()))posts.add(newPost);
+                    FirebaseUser nowUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if(nowUser == null) Log.d("pva", "No Account");
+                    if(nowUser != null && MainActivity.category == SELF && newPost.email.equals(nowUser.getEmail()))posts.add(newPost);
                 }
                 PostViewAdapter adapter = new PostViewAdapter(posts);
                 rv.setAdapter(adapter);
@@ -134,8 +135,6 @@ public class PostViewActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu2 = menu;
 
-        MenuItem publicMenu = menu2.findItem(R.id.action_public);
-        publicMenu.setVisible(false);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
