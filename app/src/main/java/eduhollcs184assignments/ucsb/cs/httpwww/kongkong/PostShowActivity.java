@@ -192,7 +192,7 @@ public class PostShowActivity extends AppCompatActivity {
         });
 
         if (mAuth.getCurrentUser() == null){
-            like.setVisibility(View.INVISIBLE);
+            like.setEnabled(false);
         }
         like.setOnClickListener(new View.OnClickListener() {
             @Override
