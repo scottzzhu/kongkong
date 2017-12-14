@@ -165,7 +165,8 @@ public class PostActivity extends AppCompatActivity {
 
 
                 String p = pic_uri;
-
+                ArrayList<String> like_list = new ArrayList<String>();
+                like_list.add("initial");
                 HashMap<String,Object> posts_map = new HashMap<>();
                 posts_map.put("Title", t);
                 posts_map.put("Location", l);
@@ -175,7 +176,7 @@ public class PostActivity extends AppCompatActivity {
                 posts_map.put("PictureUri", p);
                 posts_map.put("Start Date", sdate);
                 posts_map.put("End Date", edate);
-                posts_map.put("Like List", new ArrayList<String>());
+                posts_map.put("Like List", like_list);
 
                 postRef.push().setValue(posts_map);
 
