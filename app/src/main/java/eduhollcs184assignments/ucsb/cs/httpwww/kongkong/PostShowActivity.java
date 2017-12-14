@@ -198,11 +198,13 @@ public class PostShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                DatabaseReference likeRef = postRef.child(post_id).child("Like List");
-               like_list.add(userEmail[0]);
+               if(like_list.contains(userEmail[0])){
+                   like_list.remove(userEmail[0]);
+               }
+               else like_list.add(userEmail[0]);
                likeRef.setValue(like_list);
                String like_num = like_list.size()-1 + "";
                like_number.setText(like_num);
-               like.setEnabled(false);
             }
         });
     }
