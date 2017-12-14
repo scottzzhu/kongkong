@@ -135,9 +135,9 @@ public class PostActivity extends AppCompatActivity {
                 String d = Description.getText().toString();
                 String s = spinner.getSelectedItem().toString();
                 //get start and end date
-                dateView = (TextView) findViewById(R.id.startDateSele);
+                dateView = (TextView) findViewById(R.id.startDate);
                 String sdate = dateView.getText().toString();
-                dateView = (TextView) findViewById(R.id.endDateSele);
+                dateView = (TextView) findViewById(R.id.endDate);
                 String edate = dateView.getText().toString();
                 //check any missing field
                 if(TextUtils.isEmpty(t) || TextUtils.isEmpty(l)||TextUtils.isEmpty(d) ||
