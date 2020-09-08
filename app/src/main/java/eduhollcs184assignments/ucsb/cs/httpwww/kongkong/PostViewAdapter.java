@@ -62,6 +62,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         holder.postEmail.setText(postList.get(position).email);
         holder.postLocation.setText(postList.get(position).location);
         holder.postTitle.setText(postList.get(position).title);
+        holder.postCategory.setText(MainActivity.Category.toString(postList.get(position).category));
         String num = postList.get(position).like_number-1+"";
         holder.postLike.setText(num);
         holder.cv.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +91,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
     public static class PostViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
+        TextView postCategory;
         TextView postEmail;
         TextView postLocation;
         TextView postTitle;
@@ -98,6 +100,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
         public PostViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
+            postCategory = itemView.findViewById(R.id.post_category);
             postEmail = itemView.findViewById(R.id.post_email);
             postLocation = itemView.findViewById(R.id.post_location);
             postTitle = itemView.findViewById(R.id.post_title);

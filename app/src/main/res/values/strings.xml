@@ -29,9 +29,9 @@
 
     <string-array name="choices">
         <item>Please select a topic...</item>
-        <item>Luggage Stroage</item>
+        <item>Luggage Storage</item>
         <item>Parking</item>
-        <item>Pet Forsterage</item>
+        <item>Pet Fosterage</item>
         <item>Short-Term Lease</item>
         <item>Bike/Car Rental</item>
         <item>Others</item>
