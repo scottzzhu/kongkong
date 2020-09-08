@@ -36,7 +36,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.PostVi
             this.desc = desc;
             this.category = category;
             this.ID = ID;
-            this.like_number = like_number;
+            this.like_number = like_number; // Should change this name to like_count
         }
     }
 
